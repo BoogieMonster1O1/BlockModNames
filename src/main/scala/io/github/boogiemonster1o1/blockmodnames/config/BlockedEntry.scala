@@ -1,7 +1,5 @@
 package io.github.boogiemonster1o1.blockmodnames.config
 
-import java.util.regex.Pattern
-
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 

@@ -5,13 +5,17 @@ import java.nio.file.{Files, Path}
 import java.util
 
 import com.google.gson.{Gson, GsonBuilder, JsonObject}
+import com.mojang.brigadier.CommandDispatcher
 import com.mojang.serialization.JsonOps
-import io.github.boogiemonster1o1.blockmodnames.config.Config
+import io.github.boogiemonster1o1.blockmodnames.command.BlockModNamesCommand
+import io.github.boogiemonster1o1.blockmodnames.config.{BlockedEntry, Config}
 import net.fabricmc.api.ModInitializer
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback
 import net.fabricmc.fabric.api.network.{PacketContext, ServerSidePacketRegistry}
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.network.PacketByteBuf
 import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket
+import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.LiteralText
 import org.apache.logging.log4j.{LogManager, Logger}
@@ -34,6 +38,9 @@ object BlockModNames extends ModInitializer {
 					ctx.getPlayer.asInstanceOf[ServerPlayerEntity].networkHandler.disconnect(new LiteralText("Unsupported client! Please contact the server administrator if you think this was a mistake"))
 				}
 			})
+		})
+		CommandRegistrationCallback.EVENT.register((dispatcher: CommandDispatcher[ServerCommandSource], _ /*dedicated*/: Boolean) => {
+			BlockModNamesCommand.register(dispatcher)
 		})
 	}
 
