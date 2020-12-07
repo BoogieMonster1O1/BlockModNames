@@ -1,4 +1,4 @@
-package io.github.boogiemonster1o1.blockmodnames.config
+package io.github.boogiemonster1o1.blockmodnames
 
 import java.util
 

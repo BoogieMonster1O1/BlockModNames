@@ -8,7 +8,6 @@ import com.google.gson.{Gson, GsonBuilder, JsonObject}
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.serialization.JsonOps
 import io.github.boogiemonster1o1.blockmodnames.command.BlockModNamesCommand
-import io.github.boogiemonster1o1.blockmodnames.config.Config
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback
 import net.fabricmc.fabric.api.network.{PacketContext, ServerSidePacketRegistry}

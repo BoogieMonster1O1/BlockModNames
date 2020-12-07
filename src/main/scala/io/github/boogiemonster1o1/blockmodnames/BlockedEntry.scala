@@ -1,7 +1,8 @@
-package io.github.boogiemonster1o1.blockmodnames.config
+package io.github.boogiemonster1o1.blockmodnames
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import io.github.boogiemonster1o1.blockmodnames.config.MatchType
 
 object BlockedEntry {
 	val codec: Codec[BlockedEntry] = RecordCodecBuilder.create((instance: RecordCodecBuilder.Instance[BlockedEntry]) => {

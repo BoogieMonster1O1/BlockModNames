@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'scala'
 	id 'fabric-loom' version '0.5-SNAPSHOT'
+	id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -73,5 +74,29 @@ java {
 jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
+	}
+}
+
+curseforge {
+	if (project.hasProperty('curse_api_key')) {
+		apiKey = project.getProperty('curse_api_key')
+	}
+	project {
+		id = '426517'
+		changelog = 'A changelog can be found at https://github.com/BoogieMonster1O1/BlockModNames/commits'
+		releaseType = 'release'
+		addGameVersion '1.16.2'
+		addGameVersion '1.16.3'
+		addGameVersion '1.16.4'
+		addGameVersion 'Fabric'
+		mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")) {
+			displayName = "[${project.minecraft_version}] BlockModNames ${version}"
+		}
+		afterEvaluate {
+			uploadTask.dependsOn("remapJar")
+		}
+	}
+	options {
+		forgeGradleIntegration = false
 	}
 }
