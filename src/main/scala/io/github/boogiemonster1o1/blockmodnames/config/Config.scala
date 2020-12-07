@@ -14,6 +14,15 @@ object Config {
 }
 
 class Config(private val entries: util.List[BlockedEntry]) {
+	def matches(str: String): Boolean = {
+		val itr: util.Iterator[BlockedEntry] = entries.iterator()
+		while (itr.hasNext) {
+			val entry: BlockedEntry = itr.next()
+			if (entry.matches(str)) return true
+		}
+		false
+	}
+
 	def getEntries: util.List[BlockedEntry] = {
 		entries
 	}

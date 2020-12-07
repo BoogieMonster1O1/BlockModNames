@@ -1,5 +1,7 @@
 package io.github.boogiemonster1o1.blockmodnames.config
 
+import java.util.regex.Pattern
+
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 
@@ -9,10 +11,16 @@ object BlockedEntry {
 			Codec.STRING.fieldOf("value").forGetter((entry: BlockedEntry) => entry.getValue),
 			MatchType.CODEC.fieldOf("type").forGetter((entry: BlockedEntry) => entry.getType)
 		).apply(instance, (str: String, `type`: MatchType) => new BlockedEntry(str, `type`))
-	});
+	})
 }
 
 class BlockedEntry(private val value: String, private val `type`: MatchType) {
+	def matches(str: String): Boolean = {
+		if (`type`.equals(MatchType.EXACT)) str.equalsIgnoreCase(value)
+		else if (`type`.equals(MatchType.REGEX)) str.matches(value)
+		else false
+	}
+
 	def getValue: String = {
 		value
 	}
