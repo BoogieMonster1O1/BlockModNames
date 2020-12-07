@@ -29,7 +29,7 @@ object BlockModNames extends ModInitializer {
 	var config: Config = new Config(util.Arrays.asList())
 
 	override def onInitialize(): Unit = {
-		println("Loading BlockModNames")
+		logger.info("Loading BlockModNames")
 		load()
 		ServerSidePacketRegistry.INSTANCE.register(CustomPayloadC2SPacket.BRAND, (ctx: PacketContext, buf: PacketByteBuf) => {
 			val modName: String = buf.readString(32767)
