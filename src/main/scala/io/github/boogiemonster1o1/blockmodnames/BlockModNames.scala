@@ -8,7 +8,12 @@ import com.google.gson.{Gson, GsonBuilder, JsonObject}
 import com.mojang.serialization.JsonOps
 import io.github.boogiemonster1o1.blockmodnames.config.Config
 import net.fabricmc.api.ModInitializer
+import net.fabricmc.fabric.api.network.{PacketContext, ServerSidePacketRegistry}
 import net.fabricmc.loader.api.FabricLoader
+import net.minecraft.network.PacketByteBuf
+import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket
+import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.text.LiteralText
 import org.apache.logging.log4j.{LogManager, Logger}
 
 object BlockModNames extends ModInitializer {
@@ -22,6 +27,14 @@ object BlockModNames extends ModInitializer {
 	override def onInitialize(): Unit = {
 		println("Loading BlockModNames")
 		load()
+		ServerSidePacketRegistry.INSTANCE.register(CustomPayloadC2SPacket.BRAND, (ctx: PacketContext, buf: PacketByteBuf) => {
+			val modName: String = buf.readString(32767)
+			ctx.getTaskQueue.execute(() => {
+				if (config.matches(modName)) {
+					ctx.getPlayer.asInstanceOf[ServerPlayerEntity].networkHandler.disconnect(new LiteralText("Unsupported client! Please contact the server administrator if you think this was a mistake"))
+				}
+			})
+		})
 	}
 
 	def load(): Unit = {

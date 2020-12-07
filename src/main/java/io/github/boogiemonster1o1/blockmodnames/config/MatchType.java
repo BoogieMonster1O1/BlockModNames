@@ -8,6 +8,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.Util;
 
+// i luv java enums
 public enum MatchType implements StringIdentifiable {
 	EXACT("EXACT"),
 	REGEX("REGEX");
