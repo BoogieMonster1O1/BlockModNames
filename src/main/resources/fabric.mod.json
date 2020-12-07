@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "blockmodnames",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "BlockModNames",
+  "description": "Allows blocking clients of certain mod names",
   "authors": [
-    "Me!"
+    "BoogieMonster1O1"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -20,13 +20,13 @@
   "entrypoints": {
     "main": [
       {
-        "value": "io.github.boogiemonster1o1.example.ExampleMod",
+        "value": "io.github.boogiemonster1o1.blockmodnames.BlockModNames",
         "adapter": "scala"
       }
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "blockmodnames.mixins.json"
   ],
 
   "depends": {
